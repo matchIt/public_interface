@@ -7,7 +7,7 @@ const Login = props => {
     const typeRef = useRef();
 
     return (
-        <Jumbotron className="mt-5 px-5 col-8">
+        <Jumbotron className="mt-5 mx-auto px-5 col-8">
             <h3>Log into your account</h3>
             <Form>
                 <Form.Group>
