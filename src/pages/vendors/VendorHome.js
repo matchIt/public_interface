@@ -4,12 +4,9 @@
  *
  */
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Container, Row} from 'react-bootstrap';
 
-class Vendors extends React.Component {
+class VendorHome extends React.Component {
   render() {
     return (
       <Container>
@@ -20,3 +17,5 @@ class Vendors extends React.Component {
     );
   }
 }
+
+export default VendorHome
