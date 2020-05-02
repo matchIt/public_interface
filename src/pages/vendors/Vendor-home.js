@@ -9,7 +9,7 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-class Vendors extends React.Component {
+class Vendor_Home extends React.Component {
   render() {
     return (
       <Container>
@@ -20,3 +20,5 @@ class Vendors extends React.Component {
     );
   }
 }
+
+export default Vendor_Home

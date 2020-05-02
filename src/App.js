@@ -1,64 +1,66 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link, BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Row from "react-bootstrap/Row";
+import { Container, Button, Jumbotron, Row, Navbar,NavDropdown,Nav } from 'react-bootstrap';
 import Facility from "./pages/authentication/facility_reg";
 import Vendor from "./pages/authentication/vendor_reg";
-// import Col from "react-bootstrap/Col";
+import Login from './pages/authentication/Login.js';
+import Greeting from "./pages/Greeting";
+import Facility_Home from "./pages/facilities/Facility-home";
+import Vendor_Home from "./pages/vendors/Vendor-home";
+import Navigation from './components/Navigation';
 
-class App extends React.Component {
-  render() {
-    return (
-      <Container>
-        <Jumbotron className="mt-5">
-          <Row className="justify-content-md-center">
-            <Router>
-              <Switch>
-                <Route path="/vendor">
-                  <Vendor />
-                </Route>
-                <Route path="/facility">
-                  <Facility />
-                </Route>
-                <Route path="/">
-                  <Home />
-                </Route>
-              </Switch>
-            </Router>
-          </Row>
-        </Jumbotron>
-      </Container>
-    );
+const renderInterface = (type)=> {
+  if(type === 'vendor'){
+    return <Vendor_Home />
   }
+  return <Facility_Home />
 }
 
-function Home() {
-  return (
-    <Container>
-      <div>
-        <Row className="justify-content-md-center">
-          <h2>MatchIT Registration</h2>
-        </Row>
+class App extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      loggedIn: false,
+      type: null
+    }
+    this.toggleLogin = this.toggleLogin.bind(this);
+  }
 
-        <Row className="justify-content-md-center">
-          <p>Are you a vendor or a health facility?</p>
-        </Row>
+  toggleLogin(value,account_type){
+    this.setState({loggedIn: value,type: account_type });
+  }
 
-        <Row className="justify-content-md-center">
-          <Link to="/vendor" className="">
-            <Button variant="primary">I'm a Vendor</Button>
-          </Link>
-
-          <Link to="/facility" className="ml-2">
-            <Button variant="secondary">I'm a Facility</Button>
-          </Link>
-        </Row>
-      </div>
-    </Container>
-  );
+  render() {
+    return (
+      <Router>
+        <Navigation type={this.state.type} toggleLogin={this.toggleLogin}/>
+        <Container>
+          <Row className="justify-content-md-center">
+              <Switch>
+                <Route path="/signup-vendor">
+                  <Vendor />
+                </Route>
+                <Route path="/signup-facility">
+                  <Facility />
+                </Route>
+                <Route path="/login">
+                  <Login login={this.toggleLogin}/>
+                </Route>
+                <Route path="/">
+                  {
+                    this.state.loggedIn ?
+                    renderInterface(this.state.type)
+                    :
+                    <Greeting />
+                  }
+                </Route>
+              </Switch>
+          </Row>
+      </Container>
+      </Router>
+    );
+  }
 }
 
 export default App;
