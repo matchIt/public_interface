@@ -3,26 +3,26 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Facility from "./pages/authentication/facility_reg";
 import Vendor from "./pages/authentication/vendor_reg";
-import Login from './pages/authentication/Login.js';
+import Login from "./pages/authentication/Login.js";
 import Greeting from "./pages/Greeting";
 import Facility_Home from "./pages/facilities/Facility-home";
 import VendorHome from "./pages/vendors/VendorHome";
-import Navigation from './components/Navigation';
+import Navigation from "./components/Navigation";
 import Inventory from "./pages/vendors/Inventory";
-import Vendors_Profile from './pages/vendors/Profile';
-import Statistics from './pages/facilities/Statistics';
-import Requests from './pages/facilities/Requests';
-import Facilities_Profile from './pages/facilities/Profile';
+import Vendors_Profile from "./pages/vendors/Profile";
+import Statistics from "./pages/facilities/Statistics";
+import Requests from "./pages/facilities/Requests";
+import Facilities_Profile from "./pages/facilities/Profile";
 
-const renderInterface = (type) => {
-  if (type === 'vendor') {
-    return <VendorHome />
+const renderInterface = type => {
+  if (type === "vendor") {
+    return <VendorHome />;
   }
-  return <Facility_Home />
-}
+  return <Facility_Home />;
+};
 
 const renderCustomRoutes = type => {
-  if (type === 'vendor') {
+  if (type === "vendor") {
     return (
       <>
         <Route path="/inventory">
@@ -32,8 +32,8 @@ const renderCustomRoutes = type => {
           <Vendors_Profile />
         </Route>
       </>
-    )
-  } else if (type === 'facility') {
+    );
+  } else if (type === "facility") {
     return (
       <>
         <Route path="/data">
@@ -46,11 +46,11 @@ const renderCustomRoutes = type => {
           <Facilities_Profile />
         </Route>
       </>
-    )
+    );
   } else {
-    return
+    return;
   }
-}
+};
 
 class App extends React.Component {
   constructor() {
@@ -58,7 +58,7 @@ class App extends React.Component {
     this.state = {
       loggedIn: false,
       type: null //type of user: facility or vendor
-    }
+    };
     this.toggleLogin = this.toggleLogin.bind(this);
   }
 
@@ -85,12 +85,11 @@ class App extends React.Component {
                 <Login login={this.toggleLogin} />
               </Route>
               <Route path="/">
-                {
-                  this.state.loggedIn ?
-                    renderInterface(this.state.type) //render interface based on account type
-                    :
-                    <Greeting />
-                }
+                {this.state.loggedIn ? (
+                  renderInterface(this.state.type) //render interface based on account type
+                ) : (
+                  <Greeting />
+                )}
               </Route>
               <Route path="*">
                 <p>Invalid route: 404</p>
